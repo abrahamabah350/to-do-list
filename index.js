@@ -1,66 +1,93 @@
-// index.js
-
-// Selecting elements from the DOM
-let displayList = document.querySelector(".display-list");
+//Select elements from the DOM
 let textarea = document.querySelector("textarea");
-let date = document.querySelector(".date");
+let listDisplaySection = document.querySelector(".list-display");
 
-// Function to display the current date
-function showDate(element) {
-    let todayDate = new Date();
-    let day = todayDate.getDate();
-    let month = todayDate.getMonth() + 1;
-    let year = todayDate.getFullYear();
-    let dateMessage = (day < 10 ? "0":"") + day + "/" + (month < 10 ? "0":"") + month + "/" + year;
-    element.textContent = dateMessage;
+//Create a function that creates a new Div
+
+function newElement() {
+    let listContainer = document.createElement("div");
+    listContainer.classList.add("list-elements-container");
+
+    let listBoxContainer = document.createElement("div");
+    listBoxContainer.classList.add("box-list-container");
+
+    let checkBox = document.createElement("div");
+    checkBox.classList.add("check-box");
+
+    let check = document.createElement("p");
+    check.classList.add("check");
+    check.textContent = "\u2713";
+
+    let toDoItem = document.createElement("p");
+
+    let crossTheList = document.createElement("del");
+    crossTheList.textContent = textarea.value;
+    crossTheList.classList.add("cross-the-list");
+
+    let item = document.createElement("span");
+    item.classList.add("item");
+    item.textContent = textarea.value;
+
+    let cancel = document.createElement("p");
+    cancel.classList.add("delete");
+    cancel.textContent = "\u2717";
+    
+    
+    checkBox.appendChild(check);
+
+    toDoItem.appendChild(crossTheList);
+    toDoItem.appendChild(item);
+
+    listBoxContainer.appendChild(checkBox);
+    listBoxContainer.appendChild(toDoItem);
+
+    listContainer.appendChild(listBoxContainer);
+    listContainer.appendChild(cancel);
+
+    listDisplaySection.appendChild(listContainer);
+
+    textarea.value = "";
 }
 
-showDate(date);
-
-// Event listener for Enter key to add items to the to-do list
+//Add the user's to do item on the "Enter" keydown event
 document.addEventListener("keydown", function(event) {
-    if (event.key == "Enter") {
-        event.preventDefault();
-
-        if (textarea.value.trim() !== "") {
-            // Creating HTML elements for a to-do list item
-            let textCheckContainer = document.createElement("div");
-            textCheckContainer.classList.add("text-check-container");
-
-            let checkBoxContainer = document.createElement("div");
-            checkBoxContainer.classList.add("check-box-container");
-
-            let checkMark = document.createElement("p");
-            checkMark.textContent = "\u2713"; // Unicode check mark character
-            checkMark.classList.add("check-mark");
-
-            let listItem = document.createElement("p");
-            listItem.classList.add("list-item");
-            listItem.textContent = textarea.value;
-
-            // Appending elements to create the structure
-            checkBoxContainer.appendChild(checkMark);
-            textCheckContainer.appendChild(checkBoxContainer);
-            textCheckContainer.appendChild(listItem);
-
-            // Clearing the textarea after adding an item
-            textarea.value = "";
-
-            // Appending the new to-do list item to the display list
-            displayList.appendChild(textCheckContainer);
+    if (event.key == "Enter") { //Listen for the "Enter" keydown event.
+        event.preventDefault(); //If there is an "Enter" keydown, we will check to see if the textarea is empty.
+        if (textarea.value.trim() != "") {
+            newElement();
+            deleteList();
+            changeVisibility();
         }
-
-        // Selecting all check-mark elements and applying the showCheck function
-        let check = document.querySelectorAll(".check-mark");
-        showCheck(check);
     }
 });
 
-// Function to toggle the visibility of the check mark on click
-function showCheck(element) {
-    element.forEach((item) => {
-        item.addEventListener("click", function() {
-            item.classList.toggle("show-check-mark");
-        });
+//Create a function that changes the visibility of check (i.e the check mark)
+function changeVisibility() {
+    listDisplaySection.addEventListener("click", function(event) {
+        if(event.target.classList.contains("check")){ //Use event delegation
+            event.target.classList.toggle("show-check");
+        }
+
+        let container = event.target.closest(".list-elements-container");
+
+        if (container) {
+            let crossList = container.querySelector(".cross-the-list");
+            if (crossList) {
+                crossList.classList.toggle("show-cross-the-list");
+            }
+
+            let listItem = container.querySelector(".item");
+            if (listItem) {
+                listItem.classList.toggle("hide-item");
+            }
+        }
+    });
+}
+
+function deleteList() {
+    listDisplaySection.addEventListener("click", function(event) {
+        if (event.target.classList.contains("delete")) {
+            event.target.parentNode.remove();
+        }
     });
 }
