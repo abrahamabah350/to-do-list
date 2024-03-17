@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: "Cutive Mono", monospace;
 }
 
 .header-section {
@@ -9,18 +10,15 @@
     padding: 15px;
     font-size:25px;
     gap: 10px;
+    font-weight: 600;
 }
 
-.helper {
+.helper-div {
     border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px;
-}
-
-.list-display {
-    margin: 5px;
+    margin: 20px 5px 5px 5px;
 }
 
 textarea {
@@ -32,6 +30,10 @@ textarea {
     border: none;
     font-size: 20px;
     width: 99.9%;
+}
+
+.list-display {
+    margin: 5px;
 }
 
 textarea::placeholder {
