@@ -7,18 +7,28 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <textarea placeholder="Add your tasks here..."></textarea>
+    <div class="header-section">
+        <p class="heading-message">My to-do list</p>
+        <p class="date"></p>
+    </div>
+    <div class="helper">
+        <textarea placeholder="Add your tasks here..."></textarea>
+    </div>
     <div class="list-display">
-        <!-- <div class="list-elements-container">
+        <div class="list-elements-container">
+            <div class="grip-dots-container">
+                <i class="fa-solid fa-grip-vertical grip-dots"></i>
+            </div>
             <div class="box-list-container">
                 <div class="check-box">
                     <p class="check">&check;</p>
                 </div>
                 <p class="to-do-item"><del class="cross-the-list">Code for 1hr</del><span class="item">Code for 1hr</span></p>
             </div>
-            <p class="delete">&cross;</p>
-        </div> -->
+            <i class="fa-solid fa-xmark delete"></i>
+        </div>
     </div>
+    <script src="https://kit.fontawesome.com/b80c67b4b4.js" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
 </html>

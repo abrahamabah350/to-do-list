@@ -1,3 +1,12 @@
+//Code to generate a date
+let todayDate = new Date();
+let day = todayDate.getDate();
+let month = todayDate.getMonth() + 1;
+let year = todayDate.getFullYear();
+
+let date = document.querySelector(".date");
+date.textContent = (day < 10 ? "0":"") + day + "/" + (month < 10 ? "0":"") + month + "/" + (year < 10 ? "0":"") + year;
+
 // Select the textarea element from the DOM
 let textarea = document.querySelector("textarea");
 
@@ -9,6 +18,10 @@ function newElement() {
     // Create a container for the list item
     let listContainer = document.createElement("div");
     listContainer.classList.add("list-elements-container");
+
+    let gripDotsContainer = document.createElement("div");
+    gripDotsContainer.classList.add("grip-dots-container");
+    gripDotsContainer.innerHTML = "<i class='fa-solid fa-grip-vertical grip-dots'><i/>";
 
     // Create a container for the checkbox and the to-do item
     let listBoxContainer = document.createElement("div");
@@ -37,9 +50,11 @@ function newElement() {
     item.textContent = textarea.value;
 
     // Create a paragraph element for the delete button
-    let cancel = document.createElement("p");
+    let cancel = document.createElement("i");
     cancel.classList.add("delete");
-    cancel.textContent = "\u2717";
+    cancel.classList.add("fa-solid");
+    cancel.classList.add("fa-xmark");
+    // cancel.innerHTML = "<i class='fa-solid fa-xmark'></i>"
     
     // Append the checkbox icon to the checkbox container
     checkBox.appendChild(check);
@@ -53,6 +68,7 @@ function newElement() {
     listBoxContainer.appendChild(toDoItem);
 
     // Append the main list container and the delete button to the list display section
+    listContainer.appendChild(gripDotsContainer);
     listContainer.appendChild(listBoxContainer);
     listContainer.appendChild(cancel);
 
